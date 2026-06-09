@@ -12,6 +12,10 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
+        
+      - name: Compute lowercase image owner
+        run: |
+          echo "IMAGE_OWNER=$(echo $GITHUB_REPOSITORY | cut -d'/' -f1 | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Login to GHCR
         uses: docker/login-action@v2
@@ -25,14 +29,14 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ghcr.io/${{ toLower(github.repository_owner) }}/online-shopping-backend:${{ github.sha }}
+          tags: ghcr.io/${{ env.IMAGE_OWNER }}/online-shopping-backend:${{ github.sha }}
 
       - name: Build and push frontend image
         uses: docker/build-push-action@v4
         with:
           context: ./frontend
           push: true
-          tags: ghcr.io/${{ toLower(github.repository_owner) }}/online-shopping-frontend:${{ github.sha }}
+          tags: ghcr.io/${{ env.IMAGE_OWNER }}/online-shopping-frontend:${{ github.sha }}
 
   terraform:
     needs: build-and-push
