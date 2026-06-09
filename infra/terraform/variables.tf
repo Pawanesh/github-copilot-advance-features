@@ -28,3 +28,9 @@ variable "frontend_image" {
   type = string
   description = "Full image reference for frontend (e.g. ghcr.io/<owner>/online-shopping-frontend:tag)"
 }
+
+variable "acr_name" {
+  type        = string
+  description = "Azure Container Registry name (must be globally unique, lowercase)"
+  default     = "shoppingacrdev"
+}

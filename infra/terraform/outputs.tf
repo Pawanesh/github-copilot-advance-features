@@ -13,3 +13,11 @@ output "backend_fqdn" {
 output "frontend_fqdn" {
   value = azurerm_container_app.frontend.configuration[0].ingress[0].fqdn
 }
+
+output "acr_login_server" {
+  value = azurerm_container_registry.acr.login_server
+}
+
+output "acr_name" {
+  value = azurerm_container_registry.acr.name
+}

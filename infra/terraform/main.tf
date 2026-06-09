@@ -100,6 +100,15 @@ resource "azurerm_cosmosdb_sql_container" "orders" {
   throughput          = 400
 }
 
+# Azure Container Registry
+resource "azurerm_container_registry" "acr" {
+  name                = var.acr_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "Basic"
+  admin_enabled       = false
+}
+
 # Container App - Backend
 resource "azurerm_container_app" "backend" {
   name                = "ca-backend-${var.environment}"
