@@ -1,0 +1,12 @@
+# Example tfvars for the ACR module
+
+name = "onlineshopping101acr"
+
+# resource_group_name and location are typically set at the root terraform.tfvars
+resource_group_name = "rg-shopping-dev"
+location = "eastus"
+
+sku = "Basic"
+
+# admin_enabled is false by default — set to true only for local testing
+# admin_enabled = true

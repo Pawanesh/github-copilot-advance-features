@@ -1,0 +1,5 @@
+name = "cosmos-shopping-dev"
+resource_group_name = "rg-shopping-dev"
+location = "eastus"
+database_name = "ShoppingDb"
+throughput = 400

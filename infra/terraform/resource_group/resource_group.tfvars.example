@@ -1,0 +1,6 @@
+name = "rg-shopping-dev"
+location = "eastus"
+tags = {
+  env = "dev"
+  project = "shopping"
+}
