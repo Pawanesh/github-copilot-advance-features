@@ -21,6 +21,14 @@ jobs:
             echo "ACR_NAME=shoppingacrdev" >> $GITHUB_ENV
           fi
 
+      - name: Resolve ACR login server
+        run: |
+          if [ -n "${{ secrets.ACR_LOGIN_SERVER }}" ]; then
+            echo "ACR_LOGIN_SERVER=${{ secrets.ACR_LOGIN_SERVER }}" >> $GITHUB_ENV
+          else
+            echo "ACR_LOGIN_SERVER=${ACR_NAME}.azurecr.io" >> $GITHUB_ENV
+          fi
+
       - name: Print ACR_LOGIN_SERVER
         run: |
           echo "ACR_LOGIN_SERVER (workflow env): ${{ env.ACR_LOGIN_SERVER }}"
