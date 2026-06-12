@@ -29,6 +29,24 @@ jobs:
             echo "ACR_LOGIN_SERVER=${ACR_NAME}.azurecr.io" >> $GITHUB_ENV
           fi
 
+      - name: Diagnose secrets/vars availability
+        run: |
+          echo "secrets.ACR_LOGIN_SERVER='${{ secrets.ACR_LOGIN_SERVER }}'"
+          echo "vars.ACR_LOGIN_SERVER='${{ vars.ACR_LOGIN_SERVER }}'"
+          echo "secrets.ACR_USERNAME='${{ secrets.ACR_USERNAME }}'"
+          echo "secrets.ACR_PASSWORD present: ${{ secrets.ACR_PASSWORD != '' }}"
+
+      - name: Guard required values
+        run: |
+          if [ -z "$ACR_LOGIN_SERVER" ]; then
+            echo "ERROR: ACR_LOGIN_SERVER is empty. Set repository Secret 'ACR_LOGIN_SERVER' or 'ACR_NAME'."
+            exit 1
+          fi
+          if [ -z "${{ secrets.ACR_USERNAME }}" ] || [ -z "${{ secrets.ACR_PASSWORD }}" ]; then
+            echo "ERROR: ACR_USERNAME or ACR_PASSWORD secret is missing. Set them in repo Settings → Secrets."
+            exit 1
+          fi
+
       - name: Print ACR_LOGIN_SERVER
         run: |
           echo "ACR_LOGIN_SERVER (workflow env): ${{ env.ACR_LOGIN_SERVER }}"
