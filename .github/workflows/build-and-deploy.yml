@@ -14,11 +14,11 @@ jobs:
 
       - name: Determine ACR name
         run: |
-          # Prefer secret ACR_NAME, fall back to shoppingacrdev
+          # Prefer secret ACR_NAME, fall back to onlineshopping101acr
           if [ -n "${{ secrets.ACR_NAME }}" ]; then
             echo "ACR_NAME=${{ secrets.ACR_NAME }}" >> $GITHUB_ENV
           else
-            echo "ACR_NAME=shoppingacrdev" >> $GITHUB_ENV
+            echo "ACR_NAME=onlineshopping101acr" >> $GITHUB_ENV
           fi
 
       - name: Resolve ACR login server
